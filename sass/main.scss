@@ -1,0 +1,306 @@
+$font-family: 'Manrope', sans-serif;
+$color-full-slider-bar: hsl(174, 77%, 80%);
+$color-slider-background: hsl(174, 86%, 45%);
+// $color-discount-background: hsl(14, 92%, 95%);
+// $color-discount-text: hsl(15, 100%, 70%);
+$color-discount-background: hsl(16, 90%, 92%);
+$color-discount-text: hsl(15, 94%, 38%);
+$color-cta-text: hsl(226, 100%, 87%);
+
+$color-white: hsl(0, 0%, 100%);
+$color-pale-blue: hsl(230, 100%, 99%);
+$color-empty-slider-bar: hsl(224, 65%, 95%);
+$color-toggle-background: hsl(223, 50%, 87%);
+$color-text: hsl(226, 19%, 51%);
+$color-heading: hsl(227, 35%, 25%);
+@mixin slider() {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: none;
+
+  background-image: url('../images/icon-slider.svg');
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: $color-slider-background;
+  cursor: pointer;
+  box-shadow: 0 1.5rem 4rem rgba($color-slider-background, 0.4);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+  @media only screen and (max-width: 46.857em) {
+    font-size: 50%;
+  }
+
+  @media only screen and(min-width: 100rem) {
+    font-size: 75%;
+  }
+}
+
+body {
+  background-color: $color-pale-blue;
+  background-image: url(../images/pattern-circles.svg),
+    url(../images/bg-pattern.svg);
+  background-repeat: no-repeat, no-repeat;
+  background-size: 15rem, cover;
+  background-position: center 4%, -10rem -35rem;
+
+  font-family: $font-family;
+  line-height: 1.6;
+  font-size: 1.5rem;
+  height: 100vh;
+  color: $color-text;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.heading {
+  font-weight: 800;
+  color: $color-heading;
+
+  &--primary {
+    font-size: 3.2rem;
+  }
+
+  &--sub {
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+}
+
+.heading-box {
+  text-align: center;
+  margin-top: 5rem;
+  margin-bottom: 8rem;
+}
+
+.main {
+  width: 65rem;
+  max-width: 90%;
+}
+
+.card {
+  background-color: $color-white;
+  border-radius: 10px;
+  box-shadow: 0 3rem 6rem rgba($color-heading, 0.1);
+
+  &__content {
+    padding: 4rem 6rem 6rem;
+    display: grid;
+    grid-template-columns: 2fr 4fr;
+    border-bottom: 1px solid rgba($color-toggle-background, 0.5);
+    align-items: center;
+
+    @media only screen and (max-width: 31.25em) {
+      padding: 6rem 3rem;
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+  }
+
+  &__heading {
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    font-size: 1.6rem;
+  }
+
+  &__price-box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    @media only screen and (max-width: 31.25em) {
+      justify-content: center;
+      grid-row: 3/4;
+      margin-bottom: 4rem;
+    }
+  }
+
+  &__price {
+    display: inline-block;
+    font-size: 4.5rem;
+  }
+
+  &__per {
+    font-size: 1.8rem;
+    margin-left: 0.5rem;
+  }
+
+  &__slider {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 5rem 0 7rem;
+    grid-column: 1/3;
+    width: 100%;
+    height: 1rem;
+    background-image: linear-gradient(
+      90deg,
+      $color-full-slider-bar 0%,
+      $color-full-slider-bar 50%,
+      $color-empty-slider-bar 50%
+    );
+    border-radius: 30px;
+
+    @media only screen and (max-width: 31.25em) {
+      grid-column: 1/-1;
+    }
+  }
+
+  &__slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    @include slider();
+  }
+
+  &__slider::-moz-range-thumb {
+    @include slider();
+  }
+
+  &__pay-type {
+    grid-column: 1/3;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    @media only screen and (max-width: 31.25em) {
+      grid-column: 1/-1;
+    }
+
+    & > * {
+      margin-left: 2rem;
+    }
+  }
+
+  &__toggle {
+    position: relative;
+    width: 6rem;
+    height: 3rem;
+    background-color: $color-toggle-background;
+    border-radius: 3rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover,
+    &:focus {
+      background-color: $color-slider-background;
+    }
+    &:focus {
+      outline: 3px solid $color-heading;
+    }
+  }
+
+  &__toggle-circle {
+    position: absolute;
+    top: 50%;
+    width: 2.2rem;
+    height: 2.2rem;
+    background-color: $color-white;
+    border-radius: 50%;
+    transform: translateY(-51%);
+  }
+
+  &__toggle[aria-pressed='false'] &__toggle-circle {
+    left: 0.4rem;
+  }
+
+  &__toggle[aria-pressed='true'] &__toggle-circle {
+    left: auto;
+    right: 0.4rem;
+  }
+
+  &__discount {
+    padding: 0 1rem;
+    background-color: $color-discount-background;
+    border-radius: 30px;
+    align-self: stretch;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: $color-discount-text;
+
+    display: grid;
+    place-items: center;
+
+    &--1 {
+      @media only screen and (max-width: 31.25em) {
+        display: none;
+      }
+    }
+
+    &--2 {
+      display: none;
+      @media only screen and (max-width: 31.25em) {
+        display: grid;
+      }
+    }
+  }
+
+  &__cta {
+    padding: 4rem 6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media only screen and (max-width: 31.25em) {
+      flex-direction: column;
+    }
+  }
+
+  &__items {
+    list-style: none;
+    @media only screen and (max-width: 31.25em) {
+      margin-bottom: 3.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+  }
+
+  &__item:not(:last-child) {
+    margin-bottom: 0.7rem;
+  }
+}
+
+.check {
+  height: 1rem;
+  margin-right: 1.75rem;
+}
+.btn:link,
+.btn:visited,
+.btn {
+  display: block;
+  text-decoration: none;
+  padding: 1.2rem 4rem;
+  background-color: $color-heading;
+  color: $color-cta-text;
+  border-radius: 30px;
+  font-size: 1.4rem;
+  transition: color 0.2s;
+
+  @media only screen and (max-width: 31.25em) {
+    padding: 1.4rem 6rem;
+  }
+
+  &:hover,
+  &:focus {
+    color: $color-white;
+  }
+}
